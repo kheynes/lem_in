@@ -1,31 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lem_in.c                                           :+:      :+:    :+:   */
+/*   room.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kheynes <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/31 12:16:37 by kheynes           #+#    #+#             */
-/*   Updated: 2020/05/31 12:16:37 by kheynes          ###   ########.fr       */
+/*   Created: 2020/05/31 21:03:41 by kheynes           #+#    #+#             */
+/*   Updated: 2020/05/31 21:03:41 by kheynes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-int     main()
+void        make_room_list(t_room **room, char **line)
 {
-	char		*line[1];
-	t_room		*room;
+    char	**input;
+	char	*name;
+	int		x;
+	int		y;
 
-	while((get_next_line(0, line)) > 0)
-	{
-		if ((*line)[0] == '#' || (*line)[0] == 'L')
-			continue;
-		ft_putendl(*line);
-		make_room_list(&room, line);
-	}
-
-	print_room(room);
-
-	return(0);
+	input = ft_strsplit(*line, ' ');
+	name = input[0];
+	x = ft_atoi(input[1]);
+	y = ft_atoi(input[2]);
+	push(room, name, x, y);
 }
