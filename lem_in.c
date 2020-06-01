@@ -16,20 +16,33 @@ int     main()
 {
 	char		*line[1];
 	t_room		*room;
+	int			antCount;
 
 	room = NULL;
+	antCount = 0;
 
 	while((get_next_line(0, line)) > 0)
 	{
-		// ft_putendl(*line);
+		ft_putendl(*line);
 		if ((*line)[0] == '#' || (*line)[0] == 'L')
 			continue;
-		make_room_list(&room, *line);
+		if (antCount == 0)
+		{
+			if(is_integer(*line))
+				antCount = ft_atoi(*line);
+			else
+			{
+				ft_putendl("\033[0;31mError: No ants\033[0m");
+				exit(1);
+			}
+		}
+		else
+			make_room_list(&room, *line);
 	}
 
 	if(size(&room) == 0)
 	{
-		ft_putendl("\033[0;31mError\033[0m");
+		ft_putendl("\033[0;31mError: No rooms\033[0m");
 		exit(1);
 	}
 

@@ -25,9 +25,17 @@ typedef struct          s_room
 	struct s_room       *next;
 }                       t_room;
 
+// typedef struct			s_ant
+// {
+// 	int					antNum;
+// 	struct s_ant		*next;
+// }						t_ant;
+
 void        make_room_list(t_room **room, char *line);
 t_room*     newNode(char *name, int x, int y);
 void        push(t_room** root, char *name, int x, int y);
 void        print_room(t_room *head);
 int			size(t_room **root);
+int			is_integer(char *str);
+
 #endif
