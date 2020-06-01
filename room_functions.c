@@ -14,23 +14,23 @@
 
 t_room*    newNode(char *name, int x, int y)
 {
-    t_room*    roomNode;
+	t_room*    roomNode;
 
-    roomNode = (t_room*)malloc(sizeof(t_room));
-    roomNode->name = name;
-    roomNode->x = x;
-    roomNode->y = y;
-    roomNode->next = NULL;
-    return roomNode;
+	roomNode = (t_room*)malloc(sizeof(t_room));
+	roomNode->name = name;
+	roomNode->x = x;
+	roomNode->y = y;
+	roomNode->next = NULL;
+	return roomNode;
 }
 
 void        push(t_room** root, char *name, int x, int y)
 {
-    t_room*    roomNode;
+	t_room*    roomNode;
 
-    roomNode = newNode(name, x, y);
-    roomNode->next = *root;
-    *root = roomNode;
+	roomNode = newNode(name, x, y);
+	roomNode->next = *root;
+	*root = roomNode;
 }
 
 // int         pop(t_room** root)
@@ -46,21 +46,21 @@ void        push(t_room** root, char *name, int x, int y)
 //     return popped;
 // }
 
-// int		size(t_room **root)
-// {
-// 	int			i;
-// 	t_room*	temp;
+int		size(t_room **root)
+{
+	int			i;
+	t_room*		temp;
 
-// 	i = 0;
-// 	temp = *root;
+	i = 0;
+	temp = *root;
 	
-// 	while(temp)
-// 	{
-// 		i++;
-// 		temp = temp->next;
-// 	}
-// 	return(i);
-// }
+	while(temp)
+	{
+		i++;
+		temp = temp->next;
+	}
+	return(i);
+}
 
 // void        free_room(t_room** room)
 // {
@@ -72,13 +72,18 @@ void        push(t_room** root, char *name, int x, int y)
 
 void        print_room(t_room *head)
 {
-    t_room      *temp;
+	t_room      *temp;
 
-    temp = head;
+	temp = head;
 
-    while(temp->next != NULL)
-    {
-        ft_putendl(temp->name);
-        temp = temp->next;
-    }
+	while(temp)
+	{
+		ft_putstr(temp->name);
+		ft_putstr(" ");
+		ft_putnbr(temp->x);
+		ft_putstr(" ");
+		ft_putnbr(temp->y);
+		ft_putstr("\n");
+		temp = temp->next;
+	}
 }

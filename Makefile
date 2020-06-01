@@ -1,6 +1,6 @@
 LEM_IN = lem-in
 
-SRCS = lem_in.c room_functions.c room.c
+SRCS = lem_in.c room_functions.c room.c error_handling.c
 
 LIBFT = ./libft/libft.a
 
