@@ -12,7 +12,7 @@
 
 #include "lem_in.h"
 
-void        make_room_list(t_room **room, char *line)
+void        make_room_list(t_room **room, char *line, int roomType)
 {
     char	**input;
 	char	*name;
@@ -23,5 +23,5 @@ void        make_room_list(t_room **room, char *line)
 	name = input[0];
 	x = ft_atoi(input[1]);
 	y = ft_atoi(input[2]);
-	push(room, name, x, y);
+	push(room, name, x, y, roomType);
 }

@@ -30,3 +30,17 @@ int		is_integer(char *str)
 	free(temp);
 	return result;
 }
+
+void	includes_start_end(t_room** head)
+{
+	t_room*		temp;
+	int			start;
+	int			end;
+
+	temp = *head;
+
+	while(temp->next != NULL)
+	{
+
+	}
+}

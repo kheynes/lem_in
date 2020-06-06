@@ -17,15 +17,25 @@ int     main()
 	char		*line[1];
 	t_room		*room;
 	int			antCount;
+	int			type;
 
 	room = NULL;
 	antCount = 0;
+	type = 0;
 
 	while((get_next_line(0, line)) > 0)
 	{
 		ft_putendl(*line);
 		if ((*line)[0] == '#' || (*line)[0] == 'L')
+		{
+			if(ft_strequ(*line, "##start"))
+				type = 1;
+			else if(ft_strequ(*line, "##end"))
+				type = 2;
+			else
+				type = 0;
 			continue;
+		}
 		if (antCount == 0)
 		{
 			if(is_integer(*line))
@@ -37,7 +47,10 @@ int     main()
 			}
 		}
 		else
-			make_room_list(&room, *line);
+		{
+			make_room_list(&room, *line, type);
+			type = 0;
+		}
 	}
 
 	if(size(&room) == 0)
@@ -45,7 +58,6 @@ int     main()
 		ft_putendl("\033[0;31mError: No rooms\033[0m");
 		exit(1);
 	}
-
 	print_room(room);
 
 	return(0);

@@ -12,7 +12,7 @@
 
 #include "lem_in.h"
 
-t_room*    newNode(char *name, int x, int y)
+t_room*    newNode(char *name, int x, int y, int roomType)
 {
 	t_room*    roomNode;
 
@@ -20,15 +20,16 @@ t_room*    newNode(char *name, int x, int y)
 	roomNode->name = name;
 	roomNode->x = x;
 	roomNode->y = y;
+	roomNode->roomType = roomType;
 	roomNode->next = NULL;
 	return roomNode;
 }
 
-void        push(t_room** root, char *name, int x, int y)
+void        push(t_room** root, char *name, int x, int y, int roomType)
 {
 	t_room*    roomNode;
 
-	roomNode = newNode(name, x, y);
+	roomNode = newNode(name, x, y, roomType);
 	roomNode->next = *root;
 	*root = roomNode;
 }
@@ -83,6 +84,8 @@ void        print_room(t_room *head)
 		ft_putnbr(temp->x);
 		ft_putstr(" ");
 		ft_putnbr(temp->y);
+		ft_putstr(" ");
+		ft_putnbr(temp->roomType);
 		ft_putstr("\n");
 		temp = temp->next;
 	}
