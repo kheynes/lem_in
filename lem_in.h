@@ -39,5 +39,9 @@ void        print_room(t_room *head);
 int			size(t_room **root);
 int			is_integer(char *str);
 void		includes_start_end(t_room** head);
+int			is_comment(char *line);
+int			has_ants(char *line);
+void		has_room(t_room* rooms);
+void		read_input(t_room** room);
 
 #endif

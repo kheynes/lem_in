@@ -25,3 +25,19 @@ void        make_room_list(t_room **room, char *line, int roomType)
 	y = ft_atoi(input[2]);
 	push(room, name, x, y, roomType);
 }
+
+int		is_comment(char *line)
+{
+	int		type;
+
+	type = 0;
+
+	if(ft_strequ(line, "##start"))
+		type = 1;
+	else if(ft_strequ(line, "##end"))
+		type = 2;
+	else
+		type = 0;
+
+	return type;
+}

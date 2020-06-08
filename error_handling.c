@@ -45,10 +45,29 @@ void	includes_start_end(t_room** head)
 		temp = temp->next;
 	}
 
-	// ft_putnbr(roomCount);
 	if (roomCount != 3)
 	{
 		ft_putendl("\033[0;31mError: No Start/End room\033[0m");
+		exit(1);
+	}
+}
+
+int		has_ants(char *line)
+{
+	if(is_integer(line))
+		return (ft_atoi(line));
+	else
+	{
+		ft_putendl("\033[0;31mError: No ants\033[0m");
+		exit(1);
+	}
+}
+
+void	has_room(t_room* rooms)
+{
+	if(size(&rooms) == 0)
+	{
+		ft_putendl("\033[0;31mError: No rooms\033[0m");
 		exit(1);
 	}
 }
