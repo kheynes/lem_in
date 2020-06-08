@@ -38,5 +38,6 @@ void        push(t_room** root, char *name, int x, int y, int roomType);
 void        print_room(t_room *head);
 int			size(t_room **root);
 int			is_integer(char *str);
+void		includes_start_end(t_room** head);
 
 #endif

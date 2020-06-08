@@ -58,6 +58,9 @@ int     main()
 		ft_putendl("\033[0;31mError: No rooms\033[0m");
 		exit(1);
 	}
+
+	includes_start_end(&room);
+	
 	print_room(room);
 
 	return(0);

@@ -34,13 +34,21 @@ int		is_integer(char *str)
 void	includes_start_end(t_room** head)
 {
 	t_room*		temp;
-	int			start;
-	int			end;
+	int			roomCount;
 
 	temp = *head;
+	roomCount = 0;
 
-	while(temp->next != NULL)
+	while(temp != NULL)
 	{
+		roomCount += temp->roomType;
+		temp = temp->next;
+	}
 
+	// ft_putnbr(roomCount);
+	if (roomCount != 3)
+	{
+		ft_putendl("\033[0;31mError: No Start/End room\033[0m");
+		exit(1);
 	}
 }
