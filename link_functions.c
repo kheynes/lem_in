@@ -47,3 +47,18 @@ void		print_links(t_link *head)
 		temp = temp->next;
 	}
 }
+
+int		size_link(t_link **root)
+{
+	int			i;
+	t_link*		temp;
+
+	i = 0;
+	temp = *root;
+	while(temp)
+	{
+		i++;
+		temp = temp->next;
+	}
+	return(i);
+}

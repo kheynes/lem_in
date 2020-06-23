@@ -42,3 +42,15 @@ int		is_comment(char *line)
 	return type;
 }
 
+void	array_init(t_room **root)
+{
+	t_room		*temp;
+
+	temp = *root;
+	while(temp)
+	{
+		temp->linked_rooms = (char**)malloc(sizeof(char*) * size(root));
+		ft_putnbr(array_len(temp->linked_rooms));
+		temp =  temp->next;
+	}
+}

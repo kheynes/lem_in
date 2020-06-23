@@ -37,7 +37,7 @@ void	read_input(t_room** room, t_link** link)
 			{
 				make_links_list(link, *line);
 			}
-			else
+			else if(size_link(link) == 0)
 			{
 				make_room_list(room, *line, type);
 				type = 0;
@@ -57,8 +57,11 @@ int     main()
 	read_input(&room, &link);
 	has_room(room);
 	includes_start_end(&room);
+	ft_putendl("####################");
 	print_room(room);
 	print_links(link);
+	ft_putendl("####################");
+	array_init(&room);
 
 	return(0);
 }
