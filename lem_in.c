@@ -12,7 +12,7 @@
 
 #include "lem_in.h"
 
-void	read_input(t_room** room)
+void	read_input(t_room** room, t_link** link)
 {
 	char	*line[1];
 	int		antCount;
@@ -33,8 +33,15 @@ void	read_input(t_room** room)
 			antCount = has_ants(*line);
 		else
 		{
-			make_room_list(room, *line, type);
-			type = 0;
+			if (is_room_link(*line))
+			{
+				make_links_list(link, *line);
+			}
+			else
+			{
+				make_room_list(room, *line, type);
+				type = 0;
+			}
 		}
 	}
 }
@@ -42,13 +49,16 @@ void	read_input(t_room** room)
 int     main()
 {
 	t_room		*room;
+	t_link		*link;
 
 	room = NULL;
+	link = NULL;
 
-	read_input(&room);
+	read_input(&room, &link);
 	has_room(room);
 	includes_start_end(&room);
 	print_room(room);
+	print_links(link);
 
 	return(0);
 }

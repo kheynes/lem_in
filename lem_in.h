@@ -26,6 +26,13 @@ typedef struct          s_room
 	struct s_room       *next;
 }                       t_room;
 
+typedef struct			s_link
+{
+	char				*roomA;
+	char				*roomB;
+	struct s_link		*next;
+}						t_link;
+
 // typedef struct			s_ant
 // {
 // 	int					antNum;
@@ -42,6 +49,15 @@ void		includes_start_end(t_room** head);
 int			is_comment(char *line);
 int			has_ants(char *line);
 void		has_room(t_room* rooms);
-void		read_input(t_room** room);
+void		read_input(t_room** room, t_link** link);
+
+/** Links **/
+
+int			is_room_link(char *line);
+int			array_len(char **rooms);
+void		make_links_list(t_link **link, char *line);
+t_link*		newLink(char *roomA, char *roomB);
+void		push_link(t_link** root, char *roomA, char *roomB);
+void		print_links(t_link *head);
 
 #endif

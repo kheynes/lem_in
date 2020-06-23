@@ -41,3 +41,4 @@ int		is_comment(char *line)
 
 	return type;
 }
+
