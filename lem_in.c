@@ -62,6 +62,7 @@ int     main()
 	print_links(link);
 	ft_putendl("####################");
 	array_init(&room);
+	link_rooms(&room, &link);
 
 	return(0);
 }

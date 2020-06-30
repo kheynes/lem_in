@@ -50,7 +50,6 @@ void	array_init(t_room **root)
 	while(temp)
 	{
 		temp->linked_rooms = (char**)malloc(sizeof(char*) * size(root));
-		ft_putnbr(array_len(temp->linked_rooms));
 		temp =  temp->next;
 	}
 }

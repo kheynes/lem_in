@@ -46,3 +46,28 @@ void	make_links_list(t_link **link, char *line)
 	roomB = input[1];
 	push_link(link, roomA, roomB);
 }
+
+void	link_rooms(t_room **head, t_link **links)
+{
+	t_room		*temp;
+	t_link		*temp_links;
+	int			i;
+
+	temp = *head;
+	while(temp)
+	{
+		temp_links = *links;
+		i = 0;
+		while(temp_links)
+		{
+			if (ft_strequ(temp->name, temp_links->roomA))
+			{
+				temp->linked_rooms[i] = temp_links->roomB;
+				i++;
+			}
+			temp_links = temp_links->next;
+		}
+		ft_putnbr(array_len(temp->linked_rooms));
+		temp = temp->next;
+	}
+}
