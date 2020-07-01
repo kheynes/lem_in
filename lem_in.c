@@ -63,6 +63,27 @@ int     main()
 	ft_putendl("####################");
 	array_init(&room);
 	link_rooms(&room, &link);
+	ft_putstr("\n");
+	rev_link_rooms(&room, &link);
+	print_map(&room);
 
 	return(0);
+}
+
+void print_map(t_room **rooms)
+{
+    t_room *temp;
+    
+    temp= *rooms;
+    
+    while(temp){
+        int i = 0;
+        ft_putstr("\nRooms linked to room => ");
+        ft_putendl(temp->name);
+        while(i < array_len(temp->linked_rooms)){
+            ft_putendl(temp->linked_rooms[i]);
+            i++;
+        }
+        temp= temp->next;
+    }
 }

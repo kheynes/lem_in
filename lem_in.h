@@ -63,5 +63,9 @@ void		push_link(t_link** root, char *roomA, char *roomB);
 void		print_links(t_link *head);
 int			size_link(t_link **root);
 void		link_rooms(t_room **head, t_link **links);
+void		rev_link_rooms(t_room **head, t_link **links);
+
+/** Testing **/
+void		print_map(t_room **rooms);
 
 #endif
