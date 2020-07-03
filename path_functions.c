@@ -34,7 +34,6 @@ void  printAllPaths(char ***paths){
    int x = 0;
    while(paths[x]){
       printPath(paths[x]);
-      ft_putstr("\n");
       x++;
    	}
 }

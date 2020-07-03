@@ -31,19 +31,5 @@ void freeRoomList(room **roomList){
    }
 }
 
-int		is_comment(char *line)
-{
-	int		type;
 
-	type = 0;
-
-	if(ft_strequ(line, "##start"))
-		type = 1;
-	else if(ft_strequ(line, "##end"))
-		type = 2;
-	else
-		type = 0;
-
-	return type;
-}
 

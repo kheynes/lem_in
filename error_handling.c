@@ -77,6 +77,22 @@ int		is_integer(char *str)
 	return result;
 }
 
+int		is_comment(char *line)
+{
+	int		type;
+
+	type = 0;
+
+	if(ft_strequ(line, "##start"))
+		type = 1;
+	else if(ft_strequ(line, "##end"))
+		type = 2;
+	else
+		type = 0;
+
+	return type;
+}
+
 void	includes_start_end(room** roomList)
 {
 	int		roomCount;
@@ -115,4 +131,15 @@ void	has_room(room** roomList)
 		ft_putendl("\033[0;31mError: No rooms\033[0m");
 		exit(1);
 	}
+}
+
+int		is_room_link(char *line)
+{
+	int i = 0;
+	while (line[i++]){
+		if (line[i] == '-' && i != 0){
+			return 1;
+		}
+	}
+	return 0;
 }
