@@ -12,29 +12,29 @@
 
 #include "lem_in.h"
 
-t_link*		newLink(char *roomA, char *roomB)
+r_link*		newLink(char *roomA, char *roomB)
 {
-	t_link*		linkNode;
+	r_link*		linkNode;
 
-	linkNode = (t_link*)malloc(sizeof(t_link));
+	linkNode = (r_link*)malloc(sizeof(r_link));
 	linkNode->roomA = roomA;
 	linkNode->roomB = roomB;
 	linkNode->next = NULL;
 	return linkNode;
 }
 
-void		push_link(t_link** root, char *roomA, char *roomB)
+void		push_link(r_link** root, char *roomA, char *roomB)
 {
-	t_link*		linkNode;
+	r_link*		linkNode;
 
 	linkNode = newLink(roomA, roomB);
 	linkNode->next = *root;
 	*root = linkNode;
 }
 
-void		print_links(t_link *head)
+void		print_links(r_link *head)
 {
-	t_link		*temp;
+	r_link		*temp;
 
 	temp = head;
 
@@ -48,10 +48,10 @@ void		print_links(t_link *head)
 	}
 }
 
-int		size_link(t_link **root)
+int		size_link(r_link **root)
 {
 	int			i;
-	t_link*		temp;
+	r_link*		temp;
 
 	i = 0;
 	temp = *root;

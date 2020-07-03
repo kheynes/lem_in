@@ -12,18 +12,23 @@
 
 #include "lem_in.h"
 
-void        make_room_list(t_room **room, char *line, int roomType)
-{
-    char	**input;
-	char	*name;
-	int		x;
-	int		y;
+void addRoom(room **roomList, char *name, int type, int *roomCount) {
+	room	*newRoom;
+   newRoom = (room*)malloc(sizeof(room));
+   ft_memset(newRoom->name, '\0', sizeof(newRoom->name));
+   ft_strcpy(newRoom->name, name);
+   newRoom->visited = 0; 
+   newRoom->type = type;     
+   roomList[(*roomCount)++] = newRoom;
+   roomList[*roomCount] = NULL;
+}
 
-	input = ft_strsplit(line, ' ');
-	name = input[0];
-	x = ft_atoi(input[1]);
-	y = ft_atoi(input[2]);
-	push(room, name, x, y, roomType);
+void freeRoomList(room **roomList){
+   int i = 0;
+   while (roomList[i]){
+      free(roomList[i++]->name);
+      free(roomList[i++]);
+   }
 }
 
 int		is_comment(char *line)
@@ -42,15 +47,3 @@ int		is_comment(char *line)
 	return type;
 }
 
-void	array_init(t_room **root)
-{
-	t_room		*temp;
-
-	temp = *root;
-	while(temp)
-	{
-		temp->linked_rooms = (char**)malloc(sizeof(char*) * size(root));
-		ft_putnbr(array_len(temp->linked_rooms));
-		temp =  temp->next;
-	}
-}

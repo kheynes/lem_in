@@ -12,56 +12,27 @@
 
 #include "lem_in.h"
 
-void	read_input(t_room** room, t_link** link)
-{
-	char	*line[1];
-	int		antCount;
-	int		type;
-
-	antCount = 0;
-	type = 0;
-
-	while((get_next_line(0, line)) > 0)
-	{
-		ft_putendl(*line);
-		if ((*line)[0] == '#' || (*line)[0] == 'L')
-		{
-			type = is_comment(*line);
-			continue;
-		}
-		if (antCount == 0)
-			antCount = has_ants(*line);
-		else
-		{
-			if (is_room_link(*line))
-			{
-				make_links_list(link, *line);
-			}
-			else if(size_link(link) == 0)
-			{
-				make_room_list(room, *line, type);
-				type = 0;
-			}
-		}
-	}
-}
-
 int     main()
 {
-	t_room		*room;
-	t_link		*link;
+	room		*roomList[MAX];
+	char		**validPaths[MAX];
+	r_link		*links;
+	int			antCount;
+	int			likelyPaths;
 
-	room = NULL;
-	link = NULL;
+	links = NULL;
+	roomList[0] = NULL;
 
-	read_input(&room, &link);
-	has_room(room);
-	includes_start_end(&room);
-	ft_putendl("####################");
-	print_room(room);
-	print_links(link);
-	ft_putendl("####################");
-	array_init(&room);
-
+	antCount = read_input(roomList, &links);
+	
+	has_room(roomList);
+	includes_start_end(roomList);
+	likelyPaths = depthFirstSearch(roomList, links, validPaths);
+	
+	//printAllPaths(validPaths);
+	moveAnts(validPaths, antCount, likelyPaths);
+	freeRoomList(roomList);
+	free_links(&links);
+	freeAllPaths(validPaths);
 	return(0);
 }
