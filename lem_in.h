@@ -24,6 +24,7 @@ typedef struct          s_room
 	int                 y;
 	int					roomType;
 	char				**linked_rooms;
+	int					value;
 	struct s_room       *next;
 }                       t_room;
 
@@ -71,5 +72,7 @@ void		print_map(t_room **rooms);
 /** Algorithm **/
 t_room		*get_roomtype(t_room **head, int roomType);
 t_room		*get_roomname(t_room **head, char *name);
+void		find_path(t_room **room);
+void		assign_value(t_room **room, char *name, int value);
 
 #endif

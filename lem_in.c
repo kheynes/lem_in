@@ -58,7 +58,6 @@ int     main()
 	has_room(room);
 	includes_start_end(&room);
 	ft_putendl("####################");
-	print_room(room);
 	print_links(link);
 	ft_putendl("####################");
 	array_init(&room);
@@ -67,8 +66,8 @@ int     main()
 	rev_link_rooms(&room, &link);
 	print_map(&room);
 	ft_putendl("####################");
-	ft_putendl(get_roomtype(&room, 1)->name);
-	ft_putendl(get_roomname(&room, "4")->name);
+	find_path(&room);
+	print_room(room);
 
 	return(0);
 }

@@ -36,3 +36,27 @@ t_room		*get_roomname(t_room **head, char *name)
 	return(temp);
 }
 
+void		find_path(t_room **room)
+{
+	t_room		*temp;
+	int			i;
+
+	temp = get_roomtype(room, 2);
+	i = 0;
+	ft_putendl(temp->name);
+
+	temp->value = size(room);
+	while(i < array_len(temp->linked_rooms))
+	{
+		assign_value(room, temp->linked_rooms[i++], temp->value - 1);
+	}
+}
+
+void		assign_value(t_room **room, char *name, int value)
+{
+	t_room		*temp;
+
+	temp = get_roomname(room, name);
+	temp->value = value;
+	ft_putendl(temp->name);
+}

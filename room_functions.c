@@ -21,6 +21,8 @@ t_room*    newNode(char *name, int x, int y, int roomType)
 	roomNode->x = x;
 	roomNode->y = y;
 	roomNode->roomType = roomType;
+	roomNode->linked_rooms = NULL;
+	roomNode->value = 0;
 	roomNode->next = NULL;
 	return roomNode;
 }
@@ -86,6 +88,8 @@ void        print_room(t_room *head)
 		ft_putnbr(temp->y);
 		ft_putstr(" ");
 		ft_putnbr(temp->roomType);
+		ft_putstr(" ");
+		ft_putnbr(temp->value);
 		ft_putstr("\n");
 		temp = temp->next;
 	}
