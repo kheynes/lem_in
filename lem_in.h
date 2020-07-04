@@ -68,4 +68,8 @@ void		rev_link_rooms(t_room **head, t_link **links);
 /** Testing **/
 void		print_map(t_room **rooms);
 
+/** Algorithm **/
+t_room		*get_roomtype(t_room **head, int roomType);
+t_room		*get_roomname(t_room **head, char *name);
+
 #endif

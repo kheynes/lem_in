@@ -66,6 +66,9 @@ int     main()
 	ft_putstr("\n");
 	rev_link_rooms(&room, &link);
 	print_map(&room);
+	ft_putendl("####################");
+	ft_putendl(get_roomtype(&room, 1)->name);
+	ft_putendl(get_roomname(&room, "4")->name);
 
 	return(0);
 }
