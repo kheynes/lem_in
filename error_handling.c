@@ -44,6 +44,7 @@ int	read_input(room **roomList, r_link** links)
 			else if(size_link(links) == 0)
 			{
 				input = ft_strsplit(line, ' ');
+				validInput(input);
 				addRoom(roomList, input[0], type, &roomCount);
 				type = 0;
 				int i = 0;
@@ -56,6 +57,27 @@ int	read_input(room **roomList, r_link** links)
 		free(line);
 	}
 	return antCount;
+}
+
+void	validInput(char **str){
+	int i = 0;
+	if(str[i]){
+		i++;
+		while(str[i]){
+			if(is_integer(str[i]) == 0){
+				ft_putendl("\033[0;31mError: Invalid line\033[0m");
+				exit(1);
+			}
+			i++;
+		}
+	} else {
+		ft_putendl("\033[0;31mError: Empty line\033[0m");
+		exit(1);
+	}
+	if (i != 3){
+		ft_putendl("\033[0;31mError: Invalid line\033[0m");
+		exit(1);
+	}
 }
 
 int		is_integer(char *str)
@@ -129,6 +151,14 @@ void	has_room(room** roomList)
 	if(!(roomList[0]))
 	{
 		ft_putendl("\033[0;31mError: No rooms\033[0m");
+		exit(1);
+	}
+}
+
+void	checkValidPaths(char ***validPaths){
+	if(!(validPaths[0]))
+	{
+		ft_putendl("\033[0;31mError: No valid solution\033[0m");
 		exit(1);
 	}
 }

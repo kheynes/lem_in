@@ -22,14 +22,14 @@ int     main()
 
 	links = NULL;
 	roomList[0] = NULL;
-
+	validPaths[0] = NULL;
 	antCount = read_input(roomList, &links);
 	
 	has_room(roomList);
 	includes_start_end(roomList);
 	likelyPaths = depthFirstSearch(roomList, links, validPaths);
-	
-	//printAllPaths(validPaths);
+	checkValidPaths(validPaths);
+	printAllPaths(validPaths);
 	moveAnts(validPaths, antCount, likelyPaths);
 	freeRoomList(roomList);
 	free_links(&links);
