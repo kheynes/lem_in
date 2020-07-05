@@ -14,9 +14,10 @@
 
 int     main()
 {
+	r_link		*links;
 	room		*roomList[MAX];
 	char		**validPaths[MAX];
-	r_link		*links;
+	
 	int			antCount;
 	int			likelyPaths;
 
@@ -29,8 +30,10 @@ int     main()
 	includes_start_end(roomList);
 	likelyPaths = depthFirstSearch(roomList, links, validPaths);
 	checkValidPaths(validPaths);
-	printAllPaths(validPaths);
+	//sprintAllPaths(validPaths);
 	moveAnts(validPaths, antCount, likelyPaths);
+
+	
 	freeRoomList(roomList);
 	free_links(&links);
 	freeAllPaths(validPaths);

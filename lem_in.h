@@ -22,7 +22,6 @@ typedef struct          s_room
 	char name[10];
    	int visited;
    	int type; //1=start, 2=end
-	struct s_room		*next;
 }                       room;
 
 typedef struct			s_link
@@ -32,11 +31,12 @@ typedef struct			s_link
 	struct s_link		*next;
 }						r_link;
 
-// typedef struct			s_ant
-// {
-// 	int					antNum;
-// 	struct s_ant		*next;
-// }						t_ant;
+typedef struct			s_ant
+{
+	int					name;
+	char				**path;
+	int					pos;
+}						ant;
 
 /**error_handling**/
 int			read_input(room** roomList, r_link **links);
@@ -85,4 +85,10 @@ char 		**findNextPath(char **path, char ***validPaths, int ants);
 int 		comparePaths(char **path1, char **path2, int n);
 /**move_ants**/
 void		moveAnts(char ***validPaths, int antCount, int likelyPaths);
+int     	findPathToUse(char ***paths, int *antsInPath);
+void    	print_move(int ant, char *step);
+void    	addAnt(ant **antList, int name, char **path, int *antCount);
+int     	occupied(char **moved, char *step, int count);
+void    	clearMoved(char **moved, int count);
+void    	freeAnts(ant **antList, int antCount);
 #endif

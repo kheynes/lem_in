@@ -13,14 +13,111 @@
 #include "lem_in.h"
 
 void	moveAnts(char ***validPaths, int antCount, int likelyPaths){
-	char **pathsToUse[antCount];
+    ant    *antList[antCount];
+	char **bestPaths[likelyPaths];
+    int     antsInPath[likelyPaths];
+    char    *alreadymoved[antCount];
     int i = 0;
-    pathsToUse[i] = validPaths[i];
+    int y = 0;
+    int ant;
+    bestPaths[i] = validPaths[i];
+    antsInPath[i] = 0;
     while(++i < likelyPaths){
-        pathsToUse[i] = findNextPath(pathsToUse[i - 1], validPaths, antCount);
+        bestPaths[i] = findNextPath(bestPaths[i - 1], validPaths, antCount);
+        antsInPath[i] = 0;
     }
     i = 0;
-    while (i < likelyPaths){
-        printPath(pathsToUse[i++]);
+    ant = 1;
+    while (ant <= antCount) {
+        y = findPathToUse(bestPaths, antsInPath);
+        addAnt(antList, ant, bestPaths[y], &i);
+        antsInPath[y] = antsInPath[y] + 1;
+        ant++;
+    }
+    ft_putchar('\n');
+    while(1){
+        i = 0;
+        clearMoved(alreadymoved, antCount);
+        while(i < antCount){
+            if(antList[i]->pos == pathLength(antList[i]->path)){
+                i++;
+                continue;
+            }
+            if(!(occupied(alreadymoved, antList[i]->path[antList[i]->pos], antCount)) || antList[i]->pos == pathLength(antList[i]->path) - 1){
+                print_move(antList[i]->name, antList[i]->path[antList[i]->pos]);
+                alreadymoved[i] = antList[i]->path[antList[i]->pos];
+                antList[i]->pos = antList[i]->pos + 1;
+                i++;
+            } else {
+                i++;
+            }
+            if (i == antCount){
+                if(antList[i - 1]->pos == pathLength(antList[i - 1]->path)){
+                    ft_putchar('\n');
+                    exit(1);
+                }
+            }
+        }
+        ft_putchar('\n');
+    }
+    freeAnts(antList, antCount);
+}
+
+void    clearMoved(char **moved, int count){
+    int i = 0;
+    while(i < count){
+        moved[i++] = NULL;
+    }
+}
+
+int     occupied(char **moved, char *step, int count){
+    int i = 0;
+    while(i < count){
+        if(moved[i] == NULL){
+            i++;
+           continue;
+        }
+        if(ft_strcmp(moved[i], step) == 0){
+            return 1;
+        }
+        i++;
+    }
+    return 0;
+}
+
+int     findPathToUse(char ***paths, int *antsInPath){
+    int i = 0;
+    int ret = 0;
+    while(paths[i + 1]){
+        if (pathLength(paths[i]) + antsInPath[i] > pathLength(paths[i + 1]) +  antsInPath[i + 1]){
+               ret = i + 1;
+        }
+        i++;
+    }
+    return ret;
+}
+
+void    print_move(int ant, char *step){
+        ft_putchar('L');
+        ft_putnbr(ant);
+        ft_putchar('-');
+        ft_putstr(step);
+        ft_putchar(' ');
+}
+
+void    addAnt(ant **antList, int name, char **path, int *antCount){
+    ant *newAnt;
+    newAnt = (ant*)malloc(sizeof(ant));
+    newAnt->name = name;
+    newAnt->path = path;
+    newAnt->pos = 1;
+    antList[(*antCount)++] = newAnt;
+
+}
+
+void    freeAnts(ant **antList, int antCount){
+    int i = 0;
+    while(i < antCount){
+        free(antList[i++]);
     }
 }
