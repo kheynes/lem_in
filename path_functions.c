@@ -86,3 +86,16 @@ int comparePaths(char **path1, char **path2){
    }
    return -1;
 }
+
+int     findPathToUse(char ***paths, int n, int *antsInPath){
+    int i = 0;
+    int ret = 0;
+    while(n > 0){
+        if (pathLength(paths[i]) + antsInPath[i] > pathLength(paths[i + 1]) +  antsInPath[i + 1]){
+               ret = i + 1;
+        }
+        i++;
+        n--;
+    }
+    return ret;
+}

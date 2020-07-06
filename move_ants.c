@@ -23,7 +23,6 @@ void	moveAnts(char ***validPaths, int antCount, int likelyPaths){
     int y = 0;
     int ant = 1;
     
-
     bestPaths[i] = validPaths[i];
     while(i < likelyPaths){
         antsInPath[i++] = 0;
@@ -34,7 +33,7 @@ void	moveAnts(char ***validPaths, int antCount, int likelyPaths){
     }
     i = 0;
     while (ant <= antCount) {
-        y = findPathToUse(bestPaths, likelyPaths, antsInPath);
+        y = findPathToUse(bestPaths, likelyPaths - 1, antsInPath);
         addAnt(antList, ant, bestPaths[y], &i);
         antsInPath[y] = antsInPath[y] + 1;
         ant++;
@@ -88,19 +87,6 @@ int     occupied(char **moved, char *step, int count){
         i++;
     }
     return 0;
-}
-
-int     findPathToUse(char ***paths, int n, int *antsInPath){
-    int i = 0;
-    int ret = 0;
-    while(n < 0){
-        if (pathLength(paths[i]) + antsInPath[i] > pathLength(paths[i + 1]) +  antsInPath[i + 1]){
-               ret = i + 1;
-        }
-        i++;
-        n--;
-    }
-    return ret;
 }
 
 void    print_move(int ant, char *step){
