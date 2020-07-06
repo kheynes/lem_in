@@ -74,5 +74,7 @@ t_room		*get_roomtype(t_room **head, int roomType);
 t_room		*get_roomname(t_room **head, char *name);
 void		find_path(t_room **room);
 void		assign_value(t_room **room, char *name, int value);
+void		follow_path(t_room **room);
+t_room		*highest_value(t_room **head, char **linked_rooms);
 
 #endif
