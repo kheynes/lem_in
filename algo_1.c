@@ -43,7 +43,6 @@ void		find_path(t_room **room)
 
 	temp = get_roomtype(room, 2);
 	i = 0;
-	ft_putendl(temp->name);
 
 	temp->value = size(room);
 	while(i < array_len(temp->linked_rooms))
@@ -67,7 +66,6 @@ void		assign_value(t_room **room, char *name, int value)
 		{
 			assign_value(room, temp->linked_rooms[i++], temp->value - 1);
 		}
-		ft_putendl(temp->name);
 	}
 }
 
@@ -78,8 +76,7 @@ t_room		*highest_value(t_room **head, char **linked_rooms)
 	int			i;
 
 	i = 0;
-	temp = get_roomname(head, linked_rooms[i]);
-	highest = temp;
+	highest = get_roomname(head, linked_rooms[i]);
 
 	while(i < array_len(linked_rooms))
 	{

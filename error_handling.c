@@ -54,8 +54,15 @@ void	includes_start_end(t_room** head)
 
 int		has_ants(char *line)
 {
+	int		ants;
+
+	ants = 0;
 	if(is_integer(line))
-		return (ft_atoi(line));
+		ants = ft_atoi(line);
+	
+	if(ants > 0)
+		return ants;
+
 	else
 	{
 		ft_putendl("\033[0;31mError: No ants\033[0m");

@@ -67,7 +67,6 @@ int     main()
 	print_map(&room);
 	ft_putendl("####################");
 	find_path(&room);
-	print_room(room);
 	ft_putendl("####################");
 	follow_path(&room);
 	
