@@ -25,11 +25,20 @@ int     main()
 	validPaths[0] = NULL;
 
 	antCount = read_input(roomList, &links);
-	has_room(roomList);
-	includes_start_end(roomList);
+	if(!has_room(roomList) || !includes_start_end(roomList)){
+		freeRoomList(roomList);
+		free_links(&links);
+		exit(1);
+	}
+	
 	likelyPaths = depthFirstSearch(roomList, links, validPaths);
-	checkValidPaths(validPaths);
-	//sprintAllPaths(validPaths);
+	if(!validPathCheck(validPaths)){
+		freeRoomList(roomList);
+		free_links(&links);
+		freeAllPaths(validPaths);
+		exit(1);
+	}
+	//printAllPaths(validPaths);
 	moveAnts(validPaths, antCount, likelyPaths);
 	freeRoomList(roomList);
 	free_links(&links);

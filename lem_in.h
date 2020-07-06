@@ -40,14 +40,14 @@ typedef struct			s_ant
 
 /**error_handling**/
 int			read_input(room** roomList, r_link **links);
-void 		validInput(char **str);
+int 		validInput(char **str);
 int			is_integer(char *str);
-void		includes_start_end(room **roomList);
+int			includes_start_end(room **roomList);
 int			is_comment(char *line);
 int			has_ants(char *line);
-void		has_room(room** roomList);
+int			has_room(room** roomList);
 int			is_room_link(char *line);
-void		checkValidPaths(char ***validPaths);
+int			validPathCheck(char ***validPaths);
 /**link_functions**/
 r_link*		newLink(char *roomA, char *roomB);
 void		push_link(r_link** root, char *roomA, char *roomB);

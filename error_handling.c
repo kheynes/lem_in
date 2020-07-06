@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "lem_in.h"
-#include <stdio.h>
 
 int	read_input(room **roomList, r_link** links)
 {
@@ -20,6 +19,7 @@ int	read_input(room **roomList, r_link** links)
 	int 	roomCount;
 	int		type;
 	char    **input;
+	int 	i;
 
 	roomCount  = 0;
 	antCount = 0;
@@ -27,15 +27,28 @@ int	read_input(room **roomList, r_link** links)
 
 	while((get_next_line(0, &line)) > 0)
 	{
-		ft_putendl(line);
+		if (antCount == 0)
+		{
+			antCount = has_ants(line);
+			if (!antCount)
+			{
+				free(line);
+				exit(1);
+			}
+			else 
+			{
+				ft_putendl(line);
+				free(line);
+				continue;
+			}
+		}	
 		if (line[0] == '#' || line[0] == 'L')
 		{
 			type = is_comment(line);
+			ft_putendl(line);
 			free(line);
 			continue;
 		}
-		if (antCount == 0)
-			antCount = has_ants(line);
 		else
 		{
 			if (is_room_link(line))
@@ -45,40 +58,51 @@ int	read_input(room **roomList, r_link** links)
 			else if(size_link(links) == 0)
 			{
 				input = ft_strsplit(line, ' ');
-				validInput(input);
+				if(!validInput(input)){
+					i = 0;
+					while(input[i]){
+						free(input[i++]);
+					}
+					free(input);
+					free(line);
+					freeRoomList(roomList);
+					exit(1);
+				}
 				addRoom(roomList, input[0], type, &roomCount);
 				type = 0;
-				int i = 0;
+				i = 0;
 				while(input[i]){
 					free(input[i++]);
 				}
 				free(input);
 			}
 		}
+		ft_putendl(line);
 		free(line);
 	}
 	return antCount;
 }
 
-void	validInput(char **str){
+int	validInput(char **str){
 	int i = 0;
 	if(str[i]){
 		i++;
 		while(str[i]){
 			if(is_integer(str[i]) == 0){
-				ft_putendl("\033[0;31mError: Invalid line\033[0m");
-				exit(1);
+				ft_putendl("\033[0;31mError: Invalid line1\033[0m");
+				return 0;
 			}
 			i++;
 		}
 	} else {
 		ft_putendl("\033[0;31mError: Empty line\033[0m");
-		exit(1);
+		return 0;
 	}
 	if (i != 3){
 		ft_putendl("\033[0;31mError: Invalid line\033[0m");
-		exit(1);
+		return 0;
 	}
+	return 1;
 }
 
 int		is_integer(char *str)
@@ -116,7 +140,7 @@ int		is_comment(char *line)
 	return type;
 }
 
-void	includes_start_end(room** roomList)
+int	includes_start_end(room** roomList)
 {
 	int		roomCount;
 	int		i;
@@ -132,8 +156,9 @@ void	includes_start_end(room** roomList)
 	if (roomCount != 3)
 	{
 		ft_putendl("\033[0;31mError: No Start/End room\033[0m");
-		exit(1);
+		return 0;
 	}
+	return 1;
 }
 
 int		has_ants(char *line)
@@ -143,25 +168,28 @@ int		has_ants(char *line)
 	else
 	{
 		ft_putendl("\033[0;31mError: No ants\033[0m");
-		exit(1);
+		return 0;
 	}
+	return 1;
 }
 
-void	has_room(room** roomList)
+int	has_room(room** roomList)
 {
 	if(!(roomList[0]))
 	{
 		ft_putendl("\033[0;31mError: No rooms\033[0m");
-		exit(1);
+		return 0;
 	}
+	return 1;
 }
 
-void	checkValidPaths(char ***validPaths){
+int	validPathCheck(char ***validPaths){
 	if(!(validPaths[0]))
 	{
 		ft_putendl("\033[0;31mError: No valid solution\033[0m");
-		exit(1);
+		return 0;
 	}
+	return 1;
 }
 
 int		is_room_link(char *line)
