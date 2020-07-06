@@ -85,7 +85,7 @@ char 		**findNextPath(char **path, char ***validPaths);
 int 		comparePaths(char **path1, char **path2);
 /**move_ants**/
 void		moveAnts(char ***validPaths, int antCount, int likelyPaths);
-int     	findPathToUse(char ***paths, int *antsInPath);
+int     	findPathToUse(char ***paths, int n, int *antsInPath);
 void    	print_move(int ant, char *step);
 void    	addAnt(ant **antList, int name, char **path, int *antCount);
 int     	occupied(char **moved, char *step, int count);
