@@ -14,17 +14,20 @@
 
 void	moveAnts(char ***validPaths, int antCount, int likelyPaths){
     ant    *antList[antCount];
-	char **bestPaths[likelyPaths];
-    int     antsInPath[likelyPaths];
-    char    *alreadymoved[antCount];
+	char   **bestPaths[likelyPaths];
+    int    antsInPath[likelyPaths];
+    char   *alreadymoved[antCount];
+
     int i = 0;
     int y = 0;
     int ant;
     bestPaths[i] = validPaths[i];
-    antsInPath[i] = 0;
+    while(i < likelyPaths){
+        antsInPath[i++] = 0;
+    }
+    i = 0;
     while(++i < likelyPaths){
         bestPaths[i] = findNextPath(bestPaths[i - 1], validPaths, antCount);
-        antsInPath[i] = 0;
     }
     i = 0;
     ant = 1;
@@ -54,13 +57,13 @@ void	moveAnts(char ***validPaths, int antCount, int likelyPaths){
             if (i == antCount){
                 if(antList[i - 1]->pos == pathLength(antList[i - 1]->path)){
                     ft_putchar('\n');
-                    exit(1);
+                    freeAnts(antList, antCount);
+                    return;
                 }
             }
         }
         ft_putchar('\n');
     }
-    freeAnts(antList, antCount);
 }
 
 void    clearMoved(char **moved, int count){

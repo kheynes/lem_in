@@ -31,6 +31,7 @@ int	read_input(room **roomList, r_link** links)
 		if (line[0] == '#' || line[0] == 'L')
 		{
 			type = is_comment(line);
+			free(line);
 			continue;
 		}
 		if (antCount == 0)
