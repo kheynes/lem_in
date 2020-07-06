@@ -81,8 +81,8 @@ void  		printAllPaths(char ***validPaths);
 void 		freeAllPaths(char ***validPaths);
 char		**findShortestPath(char ***paths);
 void  		sortPaths(char ***paths);
-char 		**findNextPath(char **path, char ***validPaths, int ants);
-int 		comparePaths(char **path1, char **path2, int n);
+char 		**findNextPath(char **path, char ***validPaths);
+int 		comparePaths(char **path1, char **path2);
 /**move_ants**/
 void		moveAnts(char ***validPaths, int antCount, int likelyPaths);
 int     	findPathToUse(char ***paths, int *antsInPath);

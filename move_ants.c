@@ -17,20 +17,22 @@ void	moveAnts(char ***validPaths, int antCount, int likelyPaths){
 	char   **bestPaths[likelyPaths];
     int    antsInPath[likelyPaths];
     char   *alreadymoved[antCount];
+   
 
     int i = 0;
     int y = 0;
-    int ant;
+    int ant = 1;
+    
+
     bestPaths[i] = validPaths[i];
     while(i < likelyPaths){
         antsInPath[i++] = 0;
     }
     i = 0;
     while(++i < likelyPaths){
-        bestPaths[i] = findNextPath(bestPaths[i - 1], validPaths, antCount);
+        bestPaths[i] = findNextPath(bestPaths[i - 1], validPaths);
     }
     i = 0;
-    ant = 1;
     while (ant <= antCount) {
         y = findPathToUse(bestPaths, antsInPath);
         addAnt(antList, ant, bestPaths[y], &i);

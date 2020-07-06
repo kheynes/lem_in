@@ -19,7 +19,7 @@ int     main()
 	char		**validPaths[MAX];
 	int			antCount;
 	int			likelyPaths;
-
+	
 	links = NULL;
 	roomList[0] = NULL;
 	validPaths[0] = NULL;
