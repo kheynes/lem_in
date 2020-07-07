@@ -12,21 +12,24 @@
 
 #include "lem_in.h"
 
-void	moveAnts(char ***bestPaths, int antCount, int likelyPaths){
+void	moveAnts(char ***bestPaths, int antCount){
     ant    *antList[antCount];
-    int    antsInPath[likelyPaths];
     char   *alreadymoved[antCount];
+    int len = 0;
+    while(bestPaths[len]){
+        len++;
+    }
    
-
+    int    antsInPath[len];
     int i = 0;
     int y = 0;
     int ant = 1;
-    while(i < likelyPaths){
+    while(i < len){
         antsInPath[i++] = 0;
     }
     i = 0;
     while (ant <= antCount) {
-        y = findPathToUse(bestPaths, likelyPaths - 1, antsInPath);
+        y = findPathToUse(bestPaths, len - 1, antsInPath);
         addAnt(antList, ant, bestPaths[y], &i);
         antsInPath[y] = antsInPath[y] + 1;
         ant++;
@@ -48,14 +51,22 @@ void	moveAnts(char ***bestPaths, int antCount, int likelyPaths){
             } else {
                 i++;
             }
-            if (i == antCount){
-                if(antList[i - 1]->pos == pathLength(antList[i - 1]->path)){
+        }
+        if (i == antCount){
+                i = 0;
+                int all = 0;
+                while (i < antCount){
+                    if(antList[i]->pos == pathLength(antList[i]->path)){
+                        all++;
+                    }
+                    i++;
+                }
+                if (all == antCount){
                     ft_putchar('\n');
                     freeAnts(antList, antCount);
                     return;
                 }
             }
-        }
         ft_putchar('\n');
     }
 }

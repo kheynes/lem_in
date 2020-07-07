@@ -15,7 +15,7 @@
 # include "./libft/libft.h"
 # include <unistd.h>
 # include <stdlib.h>
-# define MAX 700
+# define MAX 1001
 
 typedef struct          s_room
 {
@@ -65,19 +65,19 @@ void		print_rooms(room *head);
 void 		freeRoomList(room **roomList);
 /**pathFinder**/
 int			depthFirstSearch(room* roomList, r_link* links, char ***validPaths);
-void 		findAllPathsUtil(int adjMatrix[MAX][MAX], room *start, room* roomList, room **potentialPath, int *stepCount, char ***validPaths, int *pathCount, room **stack, int *top);
-room* 		getNextUnvisitedRoom(int adjMatrix[MAX][MAX], room *start, room *roomList, int num);
-int 		getNumOfAdjRooms(int adjMatrix[MAX][MAX], room *start, room *roomList);
-void 		addToPotentialPath(room **potentialPath, room *step, int *stepCount);
-void 		removeFromPotentialPath(room **potentialPath, int *stepCount);
-void 		addToValidPaths(room **path, char ***validPaths, int *stepCount, int *pathCount);
+void 		findAllPathsUtil(char adjMatrix[MAX][MAX], room *start, room* roomList, char **potentialPath, int *stepCount, char ***validPaths, int *pathCount, int *stack, int *top);
+room* 		getNextUnvisitedRoom(char adjMatrix[MAX][MAX], room *start, room *roomList, int num);
+int 		getNumOfAdjRooms(char adjMatrix[MAX][MAX], room *start, room *roomList);
+void 		addToPotentialPath(char **potentialPath, room *step, int *stepCount);
+void 		removeFromPotentialPath(char **potentialPath, int *stepCount);
+void 		addToValidPaths(char **path, char ***validPaths, int *stepCount, int *pathCount);
 /**pathFinder_helpers**/
-void 		buildMatrix(int adjMatrix[MAX][MAX], room* roomList, r_link* links);
-void 		initMatrix(int adjMatrix[MAX][MAX]);
+void 		buildMatrix(char adjMatrix[MAX][MAX], room* roomList, r_link* links);
+void 		initMatrix(char adjMatrix[MAX][MAX]);
 int 		findPos(room* roomList, char *name);
 room* 		findStart(room* roomList);
-void 		pushStack(room **stack, int *top, room *item);
-room* 		pop(room **stack, int *top);
+void 		pushStack(int *stack, int *top, int index);
+room*		pop(int *stack, int *top, room *roomList);
 /**path_functions**/
 int 		pathLength(char **step);
 void 		printPath(char** path); 
@@ -88,7 +88,7 @@ void  		sortPaths(char ***paths);
 char 		**findNextPath(char **path, char ***validPaths);
 int 		comparePaths(char **path1, char **path2);
 /**move_ants**/
-void		moveAnts(char ***validPaths, int antCount, int likelyPaths);
+void		moveAnts(char ***bestPaths, int antCount);
 int     	findPathToUse(char ***paths, int n, int *antsInPath);
 void    	print_move(int ant, char *step);
 void    	addAnt(ant **antList, int name, char **path, int *antCount);

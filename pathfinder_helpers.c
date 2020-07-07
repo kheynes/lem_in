@@ -12,27 +12,27 @@
 
 #include "lem_in.h"
 
-void buildMatrix(int adjMatrix[MAX][MAX], room* roomList, r_link* links){
+void buildMatrix(char adjMatrix[MAX][MAX], room* roomList, r_link* links){
 	int room1;
 	int room2;
     initMatrix(adjMatrix);
 	while (links) {
 		room1 = findPos(roomList, links->roomA);
 		room2 = findPos(roomList, links->roomB);
-		adjMatrix[room1][room2] = 1;
-		adjMatrix[room2][room1] = 1;
+		adjMatrix[room1][room2] = '1';
+		adjMatrix[room2][room1] = '1';
 		links = links->next;
 	}
 }
 
-void initMatrix(int adjMatrix[MAX][MAX]){
+void initMatrix(char adjMatrix[MAX][MAX]){
     int i = 0;
     int j = 0;
     while (i < MAX){
         j = i;
         while(j < MAX){
-            adjMatrix[i][j] = 0;
-		      adjMatrix[j][i] = 0;
+            adjMatrix[i][j] = '0';
+		      adjMatrix[j][i] = '0';
             j++;
         }
         i++;
@@ -61,10 +61,14 @@ room *findStart(room* roomList){
    return NULL;
 }
 
-void pushStack(room **stack, int *top, room *item) { 
-   stack[++(*top)] = item; 
+void pushStack(int *stack, int *top, int index) { 
+   stack[++(*top)] = index; 
 } 
 
-room *pop(room **stack, int *top) { 
-   return stack[(*top)--]; 
+room *pop(int *stack, int *top, room *roomList) { 
+   int index = stack[(*top)--]; 
+   while(index--){
+      roomList = roomList->next;
+   }
+   return roomList;
 } 
