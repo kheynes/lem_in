@@ -15,13 +15,14 @@
 # include "./libft/libft.h"
 # include <unistd.h>
 # include <stdlib.h>
-# define MAX 100
+# define MAX 700
 
 typedef struct          s_room
 {
 	char name[10];
    	int visited;
    	int type; //1=start, 2=end
+	struct s_room *next;
 }                       room;
 
 typedef struct			s_link
@@ -42,10 +43,10 @@ typedef struct			s_ant
 int			read_input(room** roomList, r_link **links);
 int 		validInput(char **str);
 int			is_integer(char *str);
-int			includes_start_end(room **roomList);
+int			includes_start_end(room *roomList);
 int			is_comment(char *line);
 int			has_ants(char *line);
-int			has_room(room** roomList);
+int			has_room(room* roomList);
 int			is_room_link(char *line);
 int			validPathCheck(char ***validPaths);
 /**link_functions**/
@@ -57,23 +58,26 @@ int			size_link(r_link **root);
 void		make_links_list(r_link **r_link, char *line);
 void		free_links(r_link **links);
 /**room**/
-void 		addRoom(room **roomList, char *name, int type, int *roomCount);
+room*		newRoom(char *name, int type);
+void 		add_room(room **roomList, char *name, int type);
+void 		reverse(room **roomList);
+void		print_rooms(room *head);
 void 		freeRoomList(room **roomList);
 /**pathFinder**/
-int			depthFirstSearch(room** roomList, r_link* links, char ***validPaths);
-void 		findAllPathsUtil(int adjMatrix[MAX][MAX], int start, room** roomList, room **potentialPath, int *stepCount, char ***validPaths, int *pathCount, int *stack, int *top);
-int 		getNextUnvisitedRoom(int adjMatrix[MAX][MAX], int roomIndex, room** roomList, int num);
-int 		getNumOfAdjRooms(int adjMatrix[MAX][MAX], int roomIndex, room** roomList);
+int			depthFirstSearch(room* roomList, r_link* links, char ***validPaths);
+void 		findAllPathsUtil(int adjMatrix[MAX][MAX], room *start, room* roomList, room **potentialPath, int *stepCount, char ***validPaths, int *pathCount, room **stack, int *top);
+room* 		getNextUnvisitedRoom(int adjMatrix[MAX][MAX], room *start, room *roomList, int num);
+int 		getNumOfAdjRooms(int adjMatrix[MAX][MAX], room *start, room *roomList);
 void 		addToPotentialPath(room **potentialPath, room *step, int *stepCount);
 void 		removeFromPotentialPath(room **potentialPath, int *stepCount);
 void 		addToValidPaths(room **path, char ***validPaths, int *stepCount, int *pathCount);
 /**pathFinder_helpers**/
-void 		buildMatrix(int adjMatrix[MAX][MAX], room** roomList, r_link* links);
+void 		buildMatrix(int adjMatrix[MAX][MAX], room* roomList, r_link* links);
 void 		initMatrix(int adjMatrix[MAX][MAX]);
-int 		findPos(room** roomList, char *name);
-int 		findStart(room** roomList);
-void 		pushStack(int *stack, int *top, int item);
-int 		pop(int *stack, int *top);
+int 		findPos(room* roomList, char *name);
+room* 		findStart(room* roomList);
+void 		pushStack(room **stack, int *top, room *item);
+room* 		pop(room **stack, int *top);
 /**path_functions**/
 int 		pathLength(char **step);
 void 		printPath(char** path); 

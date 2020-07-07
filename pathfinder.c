@@ -12,12 +12,12 @@
 
 #include "lem_in.h"
 
-int depthFirstSearch(room** roomList, r_link* links, char ***validPaths) {
+int depthFirstSearch(room* roomList, r_link* links, char ***validPaths) {
    room *potentialPath[MAX];
-   int stepCount = 0; 
+   int stepCount = 0;
    int pathCount = 0;
-   int start = findStart(roomList);
-   int stack[MAX]; 
+   room *start = findStart(roomList);
+   room *stack[MAX]; 
    int top = -1; 
    int adjMatrix[MAX][MAX];
    buildMatrix(adjMatrix, roomList, links);
@@ -26,51 +26,57 @@ int depthFirstSearch(room** roomList, r_link* links, char ***validPaths) {
    return (getNumOfAdjRooms(adjMatrix, start, roomList));
 }
 
-void findAllPathsUtil(int adjMatrix[MAX][MAX], int start, room** roomList, room **potentialPath, int *stepCount, char ***validPaths, int *pathCount, int *stack, int *top){
+void findAllPathsUtil(int adjMatrix[MAX][MAX], room *start, room* roomList, room **potentialPath, int *stepCount, char ***validPaths, int *pathCount, room **stack, int *top){
    int adjRooms;
-   int unvisitedRoomIndex;
-   addToPotentialPath(potentialPath, roomList[start], stepCount);
+   room *unvisitedRoom = NULL;
+   addToPotentialPath(potentialPath, start, stepCount);
    pushStack(stack, top, start);
-   roomList[start]->visited = 1;
+   start->visited = 1;
 
-   if (roomList[start]->type == 2) {
+   if (start->type == 2) {
       addToValidPaths(potentialPath, validPaths, stepCount, pathCount);
    }
    else {
       adjRooms = getNumOfAdjRooms(adjMatrix, start, roomList);
       while (adjRooms > 0){
-         unvisitedRoomIndex = getNextUnvisitedRoom(adjMatrix, start, roomList, adjRooms);
-         findAllPathsUtil(adjMatrix, unvisitedRoomIndex, roomList, potentialPath, stepCount, validPaths, pathCount, stack, top);
+         unvisitedRoom = getNextUnvisitedRoom(adjMatrix, start, roomList, adjRooms);
+         findAllPathsUtil(adjMatrix, unvisitedRoom, roomList, potentialPath, stepCount, validPaths, pathCount, stack, top);
          adjRooms--;
       }
    }
    removeFromPotentialPath(potentialPath, stepCount);
-   roomList[pop(stack, top)]->visited = 0;
+   pop(stack, top)->visited = 0;
 }
 
-int getNumOfAdjRooms(int adjMatrix[MAX][MAX], int roomIndex, room** roomList){
+int getNumOfAdjRooms(int adjMatrix[MAX][MAX], room *start, room *roomList){
    int i = 0;
    int num = 0;
-   while(roomList[i]) {
-      if(adjMatrix[roomIndex][i] == 1 && roomList[i]->visited == 0) {
+   int roomIndex;
+   roomIndex = findPos(roomList, start->name);
+   while(roomList){
+      if(adjMatrix[roomIndex][i] == 1 && roomList->visited == 0) {
         num++;
       }
       i++; 
+      roomList = roomList->next;
    }
    return num;
 }
-int getNextUnvisitedRoom(int adjMatrix[MAX][MAX], int roomIndex, room** roomList, int num) {
+room *getNextUnvisitedRoom(int adjMatrix[MAX][MAX], room *start, room *roomList, int num) {
    int i = 0;
-   while(roomList[i]) {
-      if(adjMatrix[roomIndex][i] == 1 && roomList[i]->visited == 0) {
+   int roomIndex;
+   roomIndex = findPos(roomList, start->name);
+   while(roomList) {
+      if(adjMatrix[roomIndex][i] == 1 && roomList->visited == 0) {
          num--;
          if (num == 0){
-            return i;
+            return roomList;
          }
       }
       i++;
+      roomList = roomList->next;
    }
-   return -1;
+   return NULL;
 }
 
 void addToPotentialPath(room **potentialPath, room *step, int *stepCount) {
@@ -83,14 +89,25 @@ void removeFromPotentialPath(room **potentialPath, int *stepCount) {
 }
 
 void addToValidPaths(room **path, char ***validPaths, int *stepCount, int *pathCount){
+   int i;
    char** newPath;
    newPath = (char**) malloc(sizeof(char*) * (*stepCount) + 8);
-   int i = 0;
+   i = 0;
    while(i < (*stepCount)){
       newPath[i] = path[i]->name;
       i++;
    }
    newPath[i] = NULL;
+   if (*pathCount != 0) {
+      i = 0;
+      while(i < (*pathCount) - 1){
+         if(comparePaths(newPath, validPaths[i]) == 1){
+            free(newPath);
+           return;
+      }
+      i++;
+      }
+   }
    validPaths[(*pathCount)++] = newPath;
    validPaths[(*pathCount)] = NULL;
 }

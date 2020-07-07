@@ -12,9 +12,8 @@
 
 #include "lem_in.h"
 
-void	moveAnts(char ***validPaths, int antCount, int likelyPaths){
+void	moveAnts(char ***bestPaths, int antCount, int likelyPaths){
     ant    *antList[antCount];
-	char   **bestPaths[likelyPaths];
     int    antsInPath[likelyPaths];
     char   *alreadymoved[antCount];
    
@@ -22,14 +21,8 @@ void	moveAnts(char ***validPaths, int antCount, int likelyPaths){
     int i = 0;
     int y = 0;
     int ant = 1;
-    
-    bestPaths[i] = validPaths[i];
     while(i < likelyPaths){
         antsInPath[i++] = 0;
-    }
-    i = 0;
-    while(++i < likelyPaths){
-        bestPaths[i] = findNextPath(bestPaths[i - 1], validPaths);
     }
     i = 0;
     while (ant <= antCount) {

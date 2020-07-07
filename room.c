@@ -12,23 +12,70 @@
 
 #include "lem_in.h"
 
-void addRoom(room **roomList, char *name, int type, int *roomCount) {
-	room	*newRoom;
+room* newRoom(char *name, int type){
+   room     *newRoom;
    newRoom = (room*)malloc(sizeof(room));
-   ft_memset(newRoom->name, '\0', sizeof(newRoom->name));
    ft_strcpy(newRoom->name, name);
    newRoom->visited = 0; 
    newRoom->type = type;     
-   roomList[(*roomCount)++] = newRoom;
-   roomList[*roomCount] = NULL;
+   newRoom->next = NULL; 
+   return newRoom;
+}
+
+void add_room(room **roomList, char *name, int type){
+   room *newNode;
+   newNode = newRoom(name, type);
+   newNode->next = *roomList;
+   *roomList = newNode;
+}
+
+void reverse(room **roomList){
+   room *prev = NULL;
+   room *current = *roomList;
+   room *next = NULL;
+   while(current){
+      next = current->next;
+      current->next = prev; 
+      prev = current; 
+      current = next; 
+   }
+   *roomList = prev;
+}
+
+void		print_rooms(room *head)
+{
+	room		*temp;
+
+	temp = head;
+
+	while(temp)
+	{
+      ft_putstr("name:");
+		ft_putstr(temp->name);
+		ft_putstr(" type:");
+		ft_putnbr(temp->type);
+		ft_putstr("\n");
+		temp = temp->next;
+	}
+}
+
+int nbrOfRooms(room *roomList){
+   int i = 0;
+   while(roomList){
+      i++;
+      roomList = roomList->next;
+   }
+   return i;
 }
 
 void freeRoomList(room **roomList){
-   int i = 0;
-   while (roomList[i]){
-      free(roomList[i++]->name);
-      free(roomList[i++]);
-   }
+   room	*current = *roomList;
+	room	*next;
+	while (current != NULL){
+		next = current->next;
+		free(current);
+		current = next;
+	}
 }
 
 

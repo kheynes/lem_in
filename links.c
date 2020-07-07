@@ -36,5 +36,4 @@ void	free_links(r_link **links){
 		free(current);
 		current = next;
 	}
-	*links = NULL;
 }

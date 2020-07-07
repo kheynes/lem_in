@@ -16,12 +16,10 @@ int	read_input(room **roomList, r_link** links)
 {
 	char	*line;
 	int		antCount;
-	int 	roomCount;
 	int		type;
 	char    **input;
 	int 	i;
 
-	roomCount  = 0;
 	antCount = 0;
 	type = 0;
 
@@ -68,7 +66,7 @@ int	read_input(room **roomList, r_link** links)
 					freeRoomList(roomList);
 					exit(1);
 				}
-				addRoom(roomList, input[0], type, &roomCount);
+				add_room(roomList, input[0], type);
 				type = 0;
 				i = 0;
 				while(input[i]){
@@ -80,6 +78,7 @@ int	read_input(room **roomList, r_link** links)
 		ft_putendl(line);
 		free(line);
 	}
+	reverse(roomList);
 	return antCount;
 }
 
@@ -136,21 +135,17 @@ int		is_comment(char *line)
 		type = 2;
 	else
 		type = 0;
-
 	return type;
 }
 
-int	includes_start_end(room** roomList)
+int	includes_start_end(room *roomList)
 {
 	int		roomCount;
-	int		i;
-	i = 0;
 	roomCount = 0;
 
-	while(roomList[i])
-	{
-		roomCount += roomList[i]->type;
-		i++;
+	while(roomList){
+		roomCount += roomList->type;
+		roomList = roomList->next;
 	}
 
 	if (roomCount != 3)
@@ -173,9 +168,9 @@ int		has_ants(char *line)
 	return 1;
 }
 
-int	has_room(room** roomList)
+int	has_room(room *roomList)
 {
-	if(!(roomList[0]))
+	if(roomList == NULL)
 	{
 		ft_putendl("\033[0;31mError: No rooms\033[0m");
 		return 0;

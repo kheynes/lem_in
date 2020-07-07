@@ -15,32 +15,34 @@
 int     main()
 {
 	r_link		*links;
-	room		*roomList[MAX];
-	char		**validPaths[MAX];
+	room		*roomList;
+	char		**validPaths[50];
 	int			antCount;
 	int			likelyPaths;
 	
 	links = NULL;
-	roomList[0] = NULL;
+	roomList = NULL;
 	validPaths[0] = NULL;
 
-	antCount = read_input(roomList, &links);
+	antCount = read_input(&roomList, &links);
 	if(!has_room(roomList) || !includes_start_end(roomList)){
-		freeRoomList(roomList);
+		freeRoomList(&roomList);
 		free_links(&links);
 		exit(1);
 	}
-	
 	likelyPaths = depthFirstSearch(roomList, links, validPaths);
 	if(!validPathCheck(validPaths)){
-		freeRoomList(roomList);
+		freeRoomList(&roomList);
 		free_links(&links);
 		freeAllPaths(validPaths);
 		exit(1);
 	}
-	//printAllPaths(validPaths);
+	printAllPaths(validPaths);
+	ft_putstr("likely paths:");
+	ft_putnbr(likelyPaths);
+	ft_putchar('\n');
 	moveAnts(validPaths, antCount, likelyPaths);
-	freeRoomList(roomList);
+	freeRoomList(&roomList);
 	free_links(&links);
 	freeAllPaths(validPaths);
 	return(0);
