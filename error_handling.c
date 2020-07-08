@@ -24,22 +24,7 @@ int	read_input(room **roomList, r_link** links)
 	type = 0;
 	
 	while((get_next_line(0, &line)) > 0)
-	{
-		if (antCount == 0)
-		{
-			antCount = has_ants(line);
-			if (!antCount)
-			{
-				free(line);
-				exit(1);
-			}
-			else 
-			{
-				ft_putendl(line);
-				free(line);
-				continue;
-			}
-		}	
+	{	
 		if (line[0] == '#' || line[0] == 'L')
 		{
 			type = is_comment(line);
@@ -49,9 +34,25 @@ int	read_input(room **roomList, r_link** links)
 		}
 		else
 		{
+			if (antCount == 0)
+			{
+				antCount = has_ants(line);
+				if (!antCount)
+				{
+					free(line);
+					exit(1);
+				}
+				else 
+				{
+					ft_putendl(line);
+					free(line);
+					continue;
+				}
+			}	
+
 			if (is_room_link(line))
 			{
-				make_links_list(links, line);
+				make_links_list(links, line, roomList);
 			}
 			else if(size_link(links) == 0)
 			{
@@ -158,8 +159,14 @@ int	includes_start_end(room *roomList)
 
 int		has_ants(char *line)
 {
+	int		ants;
+
+	ants = 0;
 	if(is_integer(line))
-		return (ft_atoi(line));
+		ants = ft_atoi(line);
+	
+	if(ants > 0)
+		return ants;
 	else
 	{
 		ft_putendl("\033[0;31mError: No ants\033[0m");

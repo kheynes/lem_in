@@ -12,16 +12,34 @@
 
 #include "lem_in.h"
 
-void	make_links_list(r_link **links, char *line)
+void	make_links_list(r_link **links, char *line, room **roomList)
 {
 	char	**input;
 	char	*roomA;
 	char	*roomB;
-
+	int 	i;
+	
+	i = 0;
 	input = ft_strsplit(line, '-');
-	roomA = input[0];
-	roomB = input[1];
-	push_link(links, roomA, roomB);
+	if (input[1])
+	{
+		roomA = input[0];
+		roomB = input[1];
+		push_link(links, roomA, roomB);
+	}
+	else
+	{
+		ft_putendl("\033[0;31mError: Invalid link\033[0m");
+		while (input[i])
+		{
+			free(input[i++]);
+		}
+		free(input);
+		free(line);
+		freeRoomList(roomList);
+		free_links(links);
+		exit(1);
+	}
 	free(input);
 	
 }

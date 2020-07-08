@@ -58,7 +58,7 @@ void		push_link(r_link** root, char *roomA, char *roomB);
 void		print_links(r_link *head);
 int			size_link(r_link **root);
 /** links **/
-void		make_links_list(r_link **r_link, char *line);
+void		make_links_list(r_link **r_link, char *line, room **roomList);
 void		free_links(r_link **links);
 /**room**/
 room*		newRoom(char *name, int type);
