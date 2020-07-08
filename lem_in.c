@@ -29,15 +29,14 @@ int     main()
 		free_links(&links);
 		exit(1);
 	}
-	depthFirstSearch(roomList, links, validPaths);
+	bfs(roomList, links, validPaths);
 	if(!validPathCheck(validPaths)){
 		freeRoomList(&roomList);
 		free_links(&links);
 		freeAllPaths(validPaths);
 		exit(1);
 	}
-	printAllPaths(validPaths);
-	
+	//printAllPaths(validPaths);
 	moveAnts(validPaths, antCount);
 	freeRoomList(&roomList);
 	free_links(&links);

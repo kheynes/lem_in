@@ -65,21 +65,10 @@ void  sortPaths(char ***paths){
    }
 }
 
-char **findNextPath(char **path, char ***validPaths){
-   int i = 1;
-   while (validPaths[i]){
-      if(comparePaths(path, validPaths[i]) < 0){
-           return validPaths[i];
-      }
-      i++;
-   }
-   return NULL;
-}
-
-int comparePaths(char **path1, char **path2){
+int comparePaths(room **path1, char **path2){
    int i = 1;
    while(path1[i] && path2[i]){
-      if (ft_strcmp(path1[i], path2[i]) == 0 && path1[i + 1] != NULL){
+      if (ft_strcmp(path1[i]->name, path2[i]) == 0 && path1[i + 1] != NULL){
             return 1;
       }
       i++;

@@ -22,7 +22,7 @@ int	read_input(room **roomList, r_link** links)
 
 	antCount = 0;
 	type = 0;
-
+	
 	while((get_next_line(0, &line)) > 0)
 	{
 		if (antCount == 0)

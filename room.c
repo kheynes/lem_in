@@ -17,7 +17,9 @@ room* newRoom(char *name, int type){
    newRoom = (room*)malloc(sizeof(room));
    ft_strcpy(newRoom->name, name);
    newRoom->visited = 0; 
-   newRoom->type = type;     
+   newRoom->type = type;  
+   newRoom->dist = -1;   
+   newRoom->prev = NULL;   
    newRoom->next = NULL; 
    return newRoom;
 }
@@ -33,6 +35,7 @@ void reverse(room **roomList){
    room *prev = NULL;
    room *current = *roomList;
    room *next = NULL;
+   int index = 0;
    while(current){
       next = current->next;
       current->next = prev; 
@@ -40,6 +43,20 @@ void reverse(room **roomList){
       current = next; 
    }
    *roomList = prev;
+   current = *roomList;
+   while(current){
+      current->index = index++;
+      current = current->next;
+   }
+}
+
+void reset_rooms(room **roomList){
+   room *temp = *roomList;
+   while(temp){
+      temp->dist = -1;
+      temp->prev = NULL; 
+      temp = temp->next;
+   }
 }
 
 void		print_rooms(room *head)

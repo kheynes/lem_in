@@ -1,6 +1,6 @@
 LEM_IN = lem-in
 
-SRCS = lem_in.c room.c error_handling.c links.c link_functions.c pathfinder.c pathfinder_helpers.c path_functions.c move_ants.c
+SRCS = lem_in.c room.c error_handling.c links.c link_functions.c pathfinder_helpers.c path_functions.c move_ants.c bfs.c
 
 LIBFT = ./libft/libft.a
 
