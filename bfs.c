@@ -14,7 +14,7 @@
 
 int bfs(room* roomList, r_link* links, char ***validPaths) {
    room *stack[MAX];
-   room *shortestPath[MAX];
+   room *shortestPath[10];
    int stepCount = 0;
    int pathCount = 0;
    char adjMatrix[MAX][MAX];

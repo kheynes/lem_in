@@ -23,9 +23,13 @@ void	make_links_list(r_link **links, char *line, room **roomList)
 	input = ft_strsplit(line, '-');
 	if (input[1])
 	{
-		roomA = input[0];
-		roomB = input[1];
+		roomA = ft_strtrim(input[0]);
+		roomB = ft_strtrim(input[1]);
 		push_link(links, roomA, roomB);
+		while (input[i])
+		{
+			free(input[i++]);
+		}
 	}
 	else
 	{

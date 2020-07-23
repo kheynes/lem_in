@@ -16,7 +16,7 @@ int     main()
 {
 	r_link		*links;
 	room		*roomList;
-	char		**validPaths[500];
+	char		**validPaths[5];
 	int			antCount;
 	
 	links = NULL;
@@ -36,7 +36,7 @@ int     main()
 		freeAllPaths(validPaths);
 		exit(1);
 	}
-	//printAllPaths(validPaths);
+	printAllPaths(validPaths);
 	moveAnts(validPaths, antCount);
 	freeRoomList(&roomList);
 	free_links(&links);

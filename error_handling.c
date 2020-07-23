@@ -27,7 +27,9 @@ int	read_input(room **roomList, r_link** links)
 	{	
 		if (line[0] == '#' || line[0] == 'L')
 		{
-			type = is_comment(line);
+			if(line[1] == '#'){
+				type = is_comment(line);
+			}
 			ft_putendl(line);
 			free(line);
 			continue;
@@ -54,7 +56,7 @@ int	read_input(room **roomList, r_link** links)
 			{
 				make_links_list(links, line, roomList);
 			}
-			else if(size_link(links) == 0)
+			else
 			{
 				input = ft_strsplit(line, ' ');
 				if(!validInput(input)){
@@ -65,6 +67,7 @@ int	read_input(room **roomList, r_link** links)
 					free(input);
 					free(line);
 					freeRoomList(roomList);
+					free_links(links);
 					exit(1);
 				}
 				add_room(roomList, input[0], type);
@@ -89,17 +92,17 @@ int	validInput(char **str){
 		i++;
 		while(str[i]){
 			if(is_integer(str[i]) == 0){
-				ft_putendl("\033[0;31mError: Invalid line1\033[0m");
+				ft_putendl("\033[0;31mError: Empty/invalid line(s)\033[0m");
 				return 0;
 			}
 			i++;
 		}
 	} else {
-		ft_putendl("\033[0;31mError: Empty line\033[0m");
+		ft_putendl("\033[0;31mError: Empty/invalid line(s)\033[0m");
 		return 0;
 	}
 	if (i != 3){
-		ft_putendl("\033[0;31mError: Invalid line\033[0m");
+		ft_putendl("\033[0;31mError: Empty/invalid line(s)\033[0m");
 		return 0;
 	}
 	return 1;
@@ -166,7 +169,15 @@ int		has_ants(char *line)
 		ants = ft_atoi(line);
 	
 	if(ants > 0)
+	{
+		if(ants > 500000)
+		{
+			ft_putendl("\033[0;31mError: Number of ants must be less than 500,000\033[0m");
+			return 0;
+		}
 		return ants;
+	}
+		
 	else
 	{
 		ft_putendl("\033[0;31mError: No ants\033[0m");
